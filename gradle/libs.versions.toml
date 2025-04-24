@@ -21,6 +21,7 @@ navigation = "2.7.1"
 
 
 [libraries]
+androidx-core = { module = "androidx.core:core", version.ref = "coreKtx" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilCompose" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }

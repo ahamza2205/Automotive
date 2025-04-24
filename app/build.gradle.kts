@@ -84,6 +84,9 @@ dependencies {
 
     // Coil Image
     implementation(libs.coil.compose)
+  // fonts
+    implementation (libs.androidx.core)
+
 
 
 }
