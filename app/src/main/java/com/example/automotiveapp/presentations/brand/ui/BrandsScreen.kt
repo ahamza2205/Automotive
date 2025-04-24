@@ -63,6 +63,7 @@ fun BrandScreen(
         ) {
             items(brands) { brand ->
                 BrandItem(brand = brand, onClick = {
+                    navController.currentBackStackEntry?.savedStateHandle?.set("brand", brand)
                     navController.navigate("${Routes.MODELS}/${brand.id}")
                 })
             }
