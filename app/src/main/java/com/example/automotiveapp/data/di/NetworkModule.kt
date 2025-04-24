@@ -1,5 +1,6 @@
-package com.example.automotiveapp.data
+package com.example.automotiveapp.data.di
 
+import com.example.automotiveapp.data.remote.ApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

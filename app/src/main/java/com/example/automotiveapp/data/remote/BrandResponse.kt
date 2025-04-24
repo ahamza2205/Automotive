@@ -1,4 +1,4 @@
-package com.example.automotiveapp.data
+package com.example.automotiveapp.data.remote
 
 data class BrandResponse(
     val data: List<Brand>
