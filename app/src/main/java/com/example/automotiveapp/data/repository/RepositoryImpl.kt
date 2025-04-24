@@ -2,7 +2,7 @@ package com.example.automotiveapp.data.repository
 
 import com.example.automotiveapp.data.remote.ApiService
 import com.example.automotiveapp.data.remote.Brand
-import com.example.automotiveapp.domain.Repository
+import com.example.automotiveapp.domain.repository.Repository
 import com.example.automotiveapp.utils.Resource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

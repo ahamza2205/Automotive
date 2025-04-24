@@ -1,4 +1,4 @@
-package com.example.automotiveapp.domain
+package com.example.automotiveapp.domain.repository
 
 import com.example.automotiveapp.data.remote.Brand
 import com.example.automotiveapp.utils.Resource
