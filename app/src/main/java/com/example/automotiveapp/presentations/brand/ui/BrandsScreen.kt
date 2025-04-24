@@ -19,10 +19,14 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.automotiveapp.presentations.brand.viewmodel.BrandsViewModel
 import androidx.compose.runtime.LaunchedEffect
-
+import androidx.navigation.NavController
+import com.example.automotiveapp.utils.Routes
 
 @Composable
-fun BrandScreen(viewModel: BrandsViewModel = hiltViewModel()) {
+fun BrandScreen(
+    navController: NavController,
+    viewModel: BrandsViewModel = hiltViewModel()
+) {
     val searchText = viewModel.searchText.collectAsState().value
     val brands = viewModel.filteredBrands.collectAsState().value ?: emptyList()
 
@@ -58,7 +62,9 @@ fun BrandScreen(viewModel: BrandsViewModel = hiltViewModel()) {
             modifier = Modifier.padding(top = 8.dp)
         ) {
             items(brands) { brand ->
-                BrandItem(brand = brand, onClick = { /* Handle click */ })
+                BrandItem(brand = brand, onClick = {
+                    navController.navigate("${Routes.MODELS}/${brand.id}")
+                })
             }
         }
     }
