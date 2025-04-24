@@ -1,14 +1,18 @@
 package com.example.automotiveapp.data.remote
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
 data class BrandResponse(
     val data: List<Brand>
 )
 
+@Parcelize
 data class Brand(
     val id: Int,
     val name: String,
     val image: String
-)
+) : Parcelable
 
 
 data class ModelResponse(
