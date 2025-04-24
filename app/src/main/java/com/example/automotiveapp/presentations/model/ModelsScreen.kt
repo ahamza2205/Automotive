@@ -8,6 +8,7 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -19,11 +20,17 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
+import coil.compose.AsyncImage
 import com.example.automotiveapp.R
+import com.example.automotiveapp.data.remote.Brand
 
 @Composable
-fun ModelsScreen(viewModel: ModelsViewModel, brandId: Int) {
+fun ModelsScreen(
+    viewModel: ModelsViewModel,
+    brandId: Int,
+    brand: Brand,
+    onBackClick: () -> Unit,
+) {
     val viewType by viewModel.viewType.collectAsState()
     val models by viewModel.models.collectAsState()
 
@@ -38,55 +45,101 @@ fun ModelsScreen(viewModel: ModelsViewModel, brandId: Int) {
                     colors = listOf(Color(0xFFFFE5D0), Color.White)
                 )
             )
-            .padding(horizontal = 16.dp, vertical = 8.dp)
+            .padding(horizontal = 8.dp)
     ) {
-        // Top Row with Back and Toggle Icons
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
+     // Top App Bar
+        Column(
+            modifier = Modifier.fillMaxWidth()
         ) {
-            // Back Button with Custom Image
-            IconButton(onClick = { /* Handle back */ }) {
-                Image(
-                    painter = painterResource(id = R.drawable.ic_back),
-                    contentDescription = "Back",
-                    modifier = Modifier.size(24.dp)
+            Box(
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                IconButton(
+                    onClick = onBackClick, modifier = Modifier.align(Alignment.CenterStart)
+                ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.ic_back),
+                        contentDescription = "Back",
+                        modifier = Modifier.size(100.dp)
+                    )
+                }
+                AsyncImage(
+                    model = brand.image,
+                    contentDescription = brand.name,
+                    modifier = Modifier
+                        .size(100.dp)
+                        .align(Alignment.Center)
                 )
             }
-
-            Text(
-                text = "Models",
-                style = MaterialTheme.typography.titleLarge
-            )
-
-            // Toggle Button with Custom Images
-            IconButton(onClick = { viewModel.toggleViewType() }) {
-                val iconRes =
-                    if (viewType == ViewType.Grid) R.drawable.ic_list else R.drawable.ic_grid
-                Image(
-                    painter = painterResource(id = iconRes),
-                    contentDescription = "Toggle View",
-                    modifier = Modifier.size(24.dp)
-                )
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 8.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                IconButton(
+                    onClick = { viewModel.toggleViewType() },
+                    modifier = Modifier
+                        .padding(start = 4.dp)
+                        .size(52.dp)
+                        .background(
+                            color = Color.White, shape = RoundedCornerShape(6.dp)
+                        )
+                ) {
+                    val iconRes =
+                        if (viewType == ViewType.Grid) R.drawable.ic_list else R.drawable.ic_grid
+                    Image(
+                        painter = painterResource(id = iconRes),
+                        contentDescription = "Toggle View",
+                        modifier = Modifier.size(100.dp)
+                    )
+                }
+                Spacer(modifier = Modifier.weight(1f))
+                IconButton(
+                    onClick = { /* Filter action */ },
+                    modifier = Modifier
+                        .padding(start = 4.dp)
+                        .size(52.dp)
+                        .background(
+                            color = Color.White, shape = RoundedCornerShape(6.dp)
+                        )
+                ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.sort), contentDescription = "Sort"
+                    )
+                }
+                IconButton(
+                    onClick = { /* Filter action */ },
+                    modifier = Modifier
+                        .padding(start = 4.dp)
+                        .size(52.dp)
+                        .background(
+                            color = Color.White, shape = RoundedCornerShape(6.dp)
+                        )
+                ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.find_a_car),
+                        contentDescription = "Filter"
+                    )
+                }
             }
         }
 
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(4.dp))
 
-        // List or Grid
         if (viewType == ViewType.Grid) {
             LazyVerticalGrid(columns = GridCells.Fixed(2)) {
                 items(models) { model ->
-                    ModelGridItem(model = model)
+                    CustomGridModelCard(model = model)
                 }
             }
         } else {
             LazyColumn {
                 items(models) { model ->
-                    ModelListItem(model = model)
+                    CustomListModelCard(model = model)
                 }
             }
         }
     }
 }
+
