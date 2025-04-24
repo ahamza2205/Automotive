@@ -18,11 +18,17 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.automotiveapp.presentations.brand.viewmodel.BrandsViewModel
+import androidx.compose.runtime.LaunchedEffect
+
 
 @Composable
 fun BrandScreen(viewModel: BrandsViewModel = hiltViewModel()) {
     val searchText = viewModel.searchText.collectAsState().value
     val brands = viewModel.filteredBrands.collectAsState().value ?: emptyList()
+
+    LaunchedEffect(Unit) {
+        viewModel.fetchBrands(3)
+    }
 
     Column(
         modifier = Modifier
