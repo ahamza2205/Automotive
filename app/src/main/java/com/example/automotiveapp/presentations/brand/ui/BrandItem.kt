@@ -4,9 +4,11 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
@@ -25,11 +27,12 @@ import com.example.automotiveapp.data.remote.Brand
 fun BrandItem(brand: Brand, onClick: () -> Unit) {
     Column(
         modifier = Modifier
+            .height(100.dp)
             .padding(8.dp)
-            .clip(RoundedCornerShape(12.dp))
+            .clip(RoundedCornerShape(6.dp))
             .background(Color.White)
             .clickable { onClick() }
-            .padding(12.dp),
+            .padding(8.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         AsyncImage(
@@ -37,9 +40,14 @@ fun BrandItem(brand: Brand, onClick: () -> Unit) {
             contentDescription = brand.name,
             modifier = Modifier
                 .size(40.dp)
-                .clip(CircleShape)
         )
         Spacer(modifier = Modifier.height(4.dp))
-        Text(text = brand.name, style = MaterialTheme.typography.bodySmall, textAlign = TextAlign.Center)
+        Text(
+            text = brand.name,
+            modifier = Modifier
+                .fillMaxWidth(),
+            style = MaterialTheme.typography.bodySmall,
+            textAlign = TextAlign.Center
+        )
     }
 }

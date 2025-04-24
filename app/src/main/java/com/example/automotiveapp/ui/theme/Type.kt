@@ -10,7 +10,6 @@ import com.example.automotiveapp.R
 
 val poppinsFontFamily = FontFamily(
     Font(R.font.poppins_thin, FontWeight.Thin),
-    Font(R.font.poppins_light, FontWeight.Light),
     Font(R.font.poppins_regular, FontWeight.Normal),
     Font(R.font.poppins_medium, FontWeight.Medium),
     Font(R.font.poppins_semibold, FontWeight.SemiBold),
