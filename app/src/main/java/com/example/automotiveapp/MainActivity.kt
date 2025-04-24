@@ -7,16 +7,14 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.example.automotiveapp.data.remote.Brand
 import com.example.automotiveapp.presentations.brand.ui.BrandScreen
 import com.example.automotiveapp.presentations.model.ModelsScreen
 import com.example.automotiveapp.presentations.model.ModelsViewModel
@@ -50,7 +48,16 @@ class MainActivity : ComponentActivity() {
                         ) { backStackEntry ->
                             val brandId = backStackEntry.arguments?.getInt("brandId") ?: 0
                             val viewModel: ModelsViewModel = hiltViewModel()
-                            ModelsScreen(viewModel = viewModel, brandId = brandId)
+                            val brand = navController.previousBackStackEntry
+                                ?.savedStateHandle?.get<Brand>("brand")
+                            brand?.let {
+                                ModelsScreen(
+                                    viewModel = viewModel,
+                                    brand = it,
+                                    brandId = brandId,
+                                    onBackClick = { navController.popBackStack() }
+                                )
+                            }
                         }
                         composable(Routes.GENERATIONS) {
                             //  GenerationScreen()
