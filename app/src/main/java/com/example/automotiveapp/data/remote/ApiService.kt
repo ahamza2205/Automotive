@@ -8,4 +8,11 @@ interface ApiService {
     @GET("brands")
     suspend fun getBrands(@Query("category") categoryId: Int): Response<BrandResponse>
 
+    @GET("models")
+    suspend fun getModels(
+        @Query("page") page: Int,
+        @Query("brand") brandId: Int,
+        @Query("category") categoryId: Int
+    ): Response<ModelResponse>
+
 }
