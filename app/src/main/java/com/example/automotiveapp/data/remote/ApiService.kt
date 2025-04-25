@@ -15,4 +15,12 @@ interface ApiService {
         @Query("category") categoryId: Int
     ): Response<ModelResponse>
 
+    @GET("vehicles")
+    suspend fun getVehicles(
+        @Query("identification_attribute_id") identificationAttributeId: Int,
+        @Query("model") modelId: Int,
+        @Query("identification_attribute_value_id") identificationAttributeValueId: Int,
+        @Query("category") category: Int
+    ): Response<VehicleResponse>
+
 }

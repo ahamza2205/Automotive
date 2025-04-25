@@ -40,3 +40,31 @@ data class AttributeHint(
     val image: String,
     val value: String
 )
+
+
+data class VehicleResponse(
+    val data: List<Vehicle>
+)
+
+@Parcelize
+data class Vehicle(
+    val id: Int,
+    val has_seller: Boolean,
+    val year: String,
+    val additional_images: List<String>,
+    val brand_id: Int,
+    val brand: String,
+    val brand_image: String,
+    val model_id: Int,
+    val model: String,
+    val model_image: String,
+    val name: String,
+    val price: Int,
+    val hidden_price: Int,
+    val stock_available: Boolean,
+    val generation: String,
+    val selling_type: String?,
+    val is_wishlisted: Boolean,
+    val in_compare_list: Boolean,
+    val extra_attributes: List<String>?
+) : Parcelable
