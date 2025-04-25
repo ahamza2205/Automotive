@@ -1,4 +1,4 @@
-package com.example.automotiveapp.presentations.model
+package com.example.automotiveapp.presentations.model.ui
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -24,6 +24,8 @@ import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.automotiveapp.R
 import com.example.automotiveapp.data.remote.Brand
+import com.example.automotiveapp.presentations.model.viewmodel.ModelsViewModel
+import com.example.automotiveapp.presentations.model.viewmodel.ViewType
 import com.example.automotiveapp.utils.Routes
 
 @Composable
