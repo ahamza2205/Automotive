@@ -71,6 +71,7 @@ fun ExpandableVehicleCard(
                     )
                 }
             }
+            Spacer(modifier = Modifier.height(8.dp))
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.End
@@ -95,7 +96,8 @@ fun ExpandableVehicleCard(
                             id = if (isCompared) R.drawable.compare_selected else R.drawable.compare_unselected
                         ),
                         contentDescription = "Compare",
-                        modifier = Modifier.size(75.dp)
+                        tint = if (isCompared) colorResource(R.color.orange) else Color.Gray,
+                        modifier = Modifier.size(100.dp)
                     )
                 }
                 IconButton(onClick = { /* Favorite Action */ }) {
@@ -120,7 +122,7 @@ fun ExpandableVehicleCard(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Icon(
-                    painter = painterResource(id = R.drawable.group_117),
+                    painter = if (expanded) painterResource(id = R.drawable.differences_icon) else  painterResource(id = R.drawable.group_117),
                     contentDescription = "Differences Icon",
                     tint = if (expanded) colorResource(R.color.orange) else Color.Gray,
                     modifier = Modifier.size(18.dp)
@@ -202,6 +204,7 @@ fun SimpleVehicleCard(
                     )
                 }
             }
+            Spacer(modifier = Modifier.height(8.dp))
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.End
@@ -224,6 +227,7 @@ fun SimpleVehicleCard(
                         painter = painterResource(
                             id = if (isCompared) R.drawable.compare_selected else R.drawable.compare_unselected
                         ),
+                        tint = if (isCompared) colorResource(R.color.orange) else Color.Gray,
                         contentDescription = "Compare",
                         modifier = Modifier.size(75.dp)
                     )
