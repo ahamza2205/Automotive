@@ -1,5 +1,6 @@
 package com.example.automotiveapp.presentations.model
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -26,11 +27,12 @@ import com.example.automotiveapp.data.remote.Model
 import com.example.automotiveapp.utils.formatPrice
 
 @Composable
-fun CustomGridModelCard(model: Model) {
+fun CustomGridModelCard(model: Model, onClick: () -> Unit) {
     Card(
         modifier = Modifier
             .padding(8.dp)
-            .fillMaxWidth(),
+            .fillMaxWidth()
+            .clickable { onClick() },
         shape = RoundedCornerShape(16.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
         colors = CardDefaults.cardColors(
@@ -76,12 +78,13 @@ fun CustomGridModelCard(model: Model) {
 
 
 @Composable
-fun CustomListModelCard(model: Model) {
+fun CustomListModelCard(model: Model , onClick: () -> Unit) {
     Card(
         modifier = Modifier
             .padding(8.dp)
             .height(200.dp)
-            .fillMaxWidth(),
+            .fillMaxWidth()
+            .clickable { onClick() },
         shape = RoundedCornerShape(16.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
         colors = CardDefaults.cardColors(

@@ -20,12 +20,15 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.automotiveapp.R
 import com.example.automotiveapp.data.remote.Brand
+import com.example.automotiveapp.utils.Routes
 
 @Composable
 fun ModelsScreen(
+    navController: NavController,
     viewModel: ModelsViewModel,
     brandId: Int,
     brand: Brand,
@@ -132,13 +135,22 @@ fun ModelsScreen(
         if (viewType == ViewType.Grid) {
             LazyVerticalGrid(columns = GridCells.Fixed(2)) {
                 items(models) { model ->
-                    CustomGridModelCard(model = model)
+                    CustomGridModelCard(model = model) {
+                        navController.navigate(
+                            "${Routes.GENERATIONS}/${model.identification_attribute_id}/${model.identification_attribute_value_id}/${model.id}"
+                        )
+                    }
                 }
+
             }
         } else {
             LazyColumn {
                 items(models) { model ->
-                    CustomListModelCard(model = model)
+                    CustomListModelCard(model = model) {
+                        navController.navigate(
+                            "${Routes.GENERATIONS}/${model.identification_attribute_id}/${model.identification_attribute_value_id}/${model.id}"
+                        )
+                    }
                 }
             }
         }
