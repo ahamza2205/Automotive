@@ -1,5 +1,6 @@
 package com.example.automotiveapp.presentations.model.ui
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -39,7 +40,7 @@ fun ModelsScreen(
 ) {
     val viewType by viewModel.viewType.collectAsState()
     val models by viewModel.models.collectAsState()
-
+    Log.d("ModelsScreen", "Received brandId: $brandId")
     LaunchedEffect(Unit) {
         viewModel.fetchModels(brandId)
     }

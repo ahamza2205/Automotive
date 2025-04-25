@@ -1,5 +1,6 @@
 package com.example.automotiveapp.presentations.model.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.automotiveapp.data.remote.Model
@@ -34,27 +35,33 @@ class ModelsViewModel @Inject constructor(
         }
     }
 
-    fun fetchModels(brandId : Int) {
-        if (isLoading.value || !hasMore.value) return
+    fun fetchModels(brandId: Int) {
+        if (isLoading.value || !hasMore.value) {
+            Log.d("ModelsViewModel", "Skipped fetchModels for brandId: $brandId, isLoading: ${isLoading.value}, hasMore: ${hasMore.value}")
+            return
+        }
+        Log.d("ModelsViewModel", "Fetching models for brandId: $brandId, page: ${page.value}")
         viewModelScope.launch {
             isLoading.value = true
             getModelsUseCase(page.value, brandId, 3).collect { resource ->
                 when (resource) {
                     is Resource.Success -> {
                         val newModels = resource.data ?: emptyList()
-                        println("Fetched models: $newModels")
+                        Log.d("ModelsViewModel", "Fetched models for brandId: $brandId, models: $newModels")
                         if (newModels.isEmpty()) {
                             hasMore.value = false
+                            Log.d("ModelsViewModel", "No more models for brandId: $brandId")
                         } else {
                             _models.value = _models.value + newModels
-                             page.value++
+                            page.value++
+                            Log.d("ModelsViewModel", "Added models for brandId: $brandId, total: ${_models.value.size}")
                         }
                     }
                     is Resource.Error -> {
-                        println("Error fetching models: ${resource.message}")
+                        Log.d("ModelsViewModel", "Error fetching models for brandId: $brandId, message: ${resource.message}")
                     }
                     is Resource.Loading -> {
-                        println("Loading models...")
+                        Log.d("ModelsViewModel", "Loading models for brandId: $brandId")
                     }
                 }
                 isLoading.value = false

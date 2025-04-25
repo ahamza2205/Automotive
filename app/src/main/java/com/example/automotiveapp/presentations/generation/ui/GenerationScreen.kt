@@ -1,4 +1,4 @@
-package com.example.automotiveapp.presentations.generation
+package com.example.automotiveapp.presentations.generation.ui
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -16,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import com.example.automotiveapp.R
+import com.example.automotiveapp.presentations.generation.viewmodel.GenerationViewModel
 import com.example.automotiveapp.utils.Resource
 
 @Composable

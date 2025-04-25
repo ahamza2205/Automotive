@@ -1,5 +1,5 @@
 package com.example.automotiveapp.utils
 
-fun formatPrice(price: Int): String {
-    return "%,d".format(price)
+fun formatPrice(price: Double): String {
+    return String.format("%,d", price.toInt())
 }

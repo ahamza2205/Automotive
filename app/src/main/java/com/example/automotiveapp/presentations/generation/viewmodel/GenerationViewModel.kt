@@ -1,4 +1,4 @@
-package com.example.automotiveapp.presentations.generation
+package com.example.automotiveapp.presentations.generation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

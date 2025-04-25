@@ -16,7 +16,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.automotiveapp.data.remote.Brand
 import com.example.automotiveapp.presentations.brand.ui.BrandScreen
-import com.example.automotiveapp.presentations.generation.GenerationScreen
+import com.example.automotiveapp.presentations.generation.ui.GenerationScreen
 import com.example.automotiveapp.presentations.model.ui.ModelsScreen
 import com.example.automotiveapp.presentations.model.viewmodel.ModelsViewModel
 import com.example.automotiveapp.ui.theme.AutomotiveAppTheme
