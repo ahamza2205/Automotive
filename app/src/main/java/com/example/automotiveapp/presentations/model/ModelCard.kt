@@ -1,5 +1,6 @@
 package com.example.automotiveapp.presentations.model
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -7,6 +8,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.AlertDialogDefaults.containerColor
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
@@ -16,8 +18,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.example.automotiveapp.R
 import com.example.automotiveapp.data.remote.Model
 import com.example.automotiveapp.utils.formatPrice
 
@@ -28,7 +32,10 @@ fun CustomGridModelCard(model: Model) {
             .padding(8.dp)
             .fillMaxWidth(),
         shape = RoundedCornerShape(16.dp),
-        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
+        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = colorResource(R.color.white)
+        )
     ) {
         Column(
             horizontalAlignment = Alignment.Start,
@@ -44,12 +51,12 @@ fun CustomGridModelCard(model: Model) {
             )
             Text(
                 text = model.name,
-                style = MaterialTheme.typography.bodyLarge,
+                style = MaterialTheme.typography.titleMedium,
                 modifier = Modifier.padding(top = 8.dp)
             )
             Text(
-                text = "2023", // أو model.year لو عندك
-                style = MaterialTheme.typography.bodySmall,
+                text = model.attribute_value,
+                style = MaterialTheme.typography.bodyLarge,
                 color = Color.Gray
             )
             Text(
@@ -59,9 +66,9 @@ fun CustomGridModelCard(model: Model) {
                 modifier = Modifier.padding(top = 4.dp)
             )
             Text(
-                text = "${formatPrice(model.price)} EGP",
+                text = "${formatPrice(model.least_deposit)} EGP",
                 color = Color(0xFFFF5722),
-                style = MaterialTheme.typography.bodyMedium
+                style = MaterialTheme.typography.titleMedium
             )
         }
     }
@@ -73,9 +80,13 @@ fun CustomListModelCard(model: Model) {
     Card(
         modifier = Modifier
             .padding(8.dp)
+            .height(200.dp)
             .fillMaxWidth(),
         shape = RoundedCornerShape(16.dp),
-        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
+        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = colorResource(R.color.white)
+        )
     ) {
         Column(
             modifier = Modifier.padding(8.dp),
@@ -86,30 +97,39 @@ fun CustomListModelCard(model: Model) {
                 contentDescription = model.name,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(180.dp)
-                    .clip(RoundedCornerShape(12.dp))
+                    .height(130.dp)
             )
-            Text(
-                text = model.name,
-                style = MaterialTheme.typography.bodyLarge,
-                modifier = Modifier.padding(top = 8.dp)
-            )
-            Text(
-                text = "2023",
-                style = MaterialTheme.typography.bodySmall,
-                color = Color.Gray
-            )
-            Text(
-                text = "Starting From",
-                style = MaterialTheme.typography.bodySmall,
-                color = Color.Gray,
-                modifier = Modifier.padding(top = 4.dp)
-            )
-            Text(
-                text = "${formatPrice(model.price)} EGP",
-                color = Color(0xFFFF5722),
-                style = MaterialTheme.typography.bodyMedium
-            )
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Column(horizontalAlignment = Alignment.Start) {
+                    Text(
+                        text = model.name,
+                        style = MaterialTheme.typography.titleMedium,
+                        modifier = Modifier.padding(top = 4.dp)
+                    )
+                    Text(
+                        text = model.attribute_value,
+                        style = MaterialTheme.typography.bodyLarge,
+                        color = Color.Gray
+                    )
+                }
+                Column(horizontalAlignment = Alignment.Start) {
+                    Text(
+                        text = "Starting From",
+                        style = MaterialTheme.typography.bodySmall,
+                        color = Color.Gray
+                    )
+                    Text(
+                        text = "${formatPrice(model.least_deposit)} EGP",
+                        color = Color(0xFFFF5722),
+                        style = MaterialTheme.typography.titleMedium
+                    )
+                }
+            }
         }
     }
 }

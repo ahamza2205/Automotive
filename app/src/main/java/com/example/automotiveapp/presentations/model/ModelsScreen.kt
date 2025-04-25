@@ -52,7 +52,9 @@ fun ModelsScreen(
             modifier = Modifier.fillMaxWidth()
         ) {
             Box(
+
                 modifier = Modifier.fillMaxWidth()
+                    .padding(top = 8.dp)
             ) {
                 IconButton(
                     onClick = onBackClick, modifier = Modifier.align(Alignment.CenterStart)
@@ -60,7 +62,7 @@ fun ModelsScreen(
                     Image(
                         painter = painterResource(id = R.drawable.ic_back),
                         contentDescription = "Back",
-                        modifier = Modifier.size(100.dp)
+                        modifier = Modifier.size(80.dp)
                     )
                 }
                 AsyncImage(
