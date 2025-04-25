@@ -20,7 +20,6 @@ fun GenerationScreen(
     identificationAttributeId: Int,
     modelId: Int,
     identificationAttributeValueId: Int,
-    category: Int,
     onBackClick: () -> Unit,
     viewModel: GenerationViewModel = hiltViewModel()
 ) {
@@ -32,7 +31,7 @@ fun GenerationScreen(
             identificationAttributeId,
             modelId,
             identificationAttributeValueId,
-            category
+            3
         )
     }
 
