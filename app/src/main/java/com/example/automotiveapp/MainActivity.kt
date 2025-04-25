@@ -64,7 +64,6 @@ class MainActivity : ComponentActivity() {
                         composable(
                             route = Routes.GENERATIONS + "/{identificationAttributeId}/{identificationAttributeValueId}/{modelId}",
                             arguments = listOf(
-                                navArgument("category") { type = NavType.StringType },
                                 navArgument("identificationAttributeId") { type = NavType.IntType },
                                 navArgument("identificationAttributeValueId") {
                                     type = NavType.IntType
