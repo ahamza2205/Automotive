@@ -10,6 +10,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -43,7 +44,7 @@ fun GenerationScreen(
                 .fillMaxSize()
                 .background(
                     Brush.verticalGradient(
-                        colors = listOf(Color(0xFFFFE5D0), Color.White)
+                        colors = listOf(colorResource(R.color.orange_background), Color.White)
                     )
                 )
                 .padding(16.dp),
@@ -149,7 +150,7 @@ fun GenerationScreen(
                 modifier = Modifier
                     .align(Alignment.BottomEnd)
                     .padding(16.dp),
-                containerColor = Color(0xFFFF9800)
+                containerColor = colorResource(R.color.orange)
             ) {
                 Row(
                     verticalAlignment = Alignment.CenterVertically,

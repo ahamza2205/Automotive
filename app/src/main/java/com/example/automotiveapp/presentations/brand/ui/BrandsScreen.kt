@@ -19,7 +19,9 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.automotiveapp.presentations.brand.viewmodel.BrandsViewModel
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.res.colorResource
 import androidx.navigation.NavController
+import com.example.automotiveapp.R
 import com.example.automotiveapp.utils.Routes
 
 @Composable
@@ -39,7 +41,7 @@ fun BrandScreen(
             .fillMaxSize()
             .background(
                 brush = Brush.verticalGradient(
-                    colors = listOf(Color(0xFFFFE5D0), Color.White)
+                    colors = listOf(colorResource(R.color.orange_background), Color.White)
                 )
             )
             .padding(horizontal = 16.dp, vertical = 8.dp)
