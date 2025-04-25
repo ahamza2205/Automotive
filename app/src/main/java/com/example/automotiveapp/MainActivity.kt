@@ -16,6 +16,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.automotiveapp.data.remote.Brand
 import com.example.automotiveapp.presentations.brand.ui.BrandScreen
+import com.example.automotiveapp.presentations.generation.GenerationScreen
 import com.example.automotiveapp.presentations.model.ModelsScreen
 import com.example.automotiveapp.presentations.model.ModelsViewModel
 import com.example.automotiveapp.ui.theme.AutomotiveAppTheme
@@ -52,6 +53,7 @@ class MainActivity : ComponentActivity() {
                                 ?.savedStateHandle?.get<Brand>("brand")
                             brand?.let {
                                 ModelsScreen(
+                                    navController = navController,
                                     viewModel = viewModel,
                                     brand = it,
                                     brandId = brandId,
@@ -59,8 +61,25 @@ class MainActivity : ComponentActivity() {
                                 )
                             }
                         }
-                        composable(Routes.GENERATIONS) {
-                            //  GenerationScreen()
+                        composable(
+                            route = Routes.GENERATIONS + "/{identificationAttributeId}/{identificationAttributeValueId}/{modelId}",
+                            arguments = listOf(
+                                navArgument("category") { type = NavType.StringType },
+                                navArgument("identificationAttributeId") { type = NavType.IntType },
+                                navArgument("identificationAttributeValueId") {
+                                    type = NavType.IntType
+                                },
+                                navArgument("modelId") { type = NavType.IntType }
+                            )
+                        ) { backStackEntry ->
+                            GenerationScreen(
+                                identificationAttributeId = backStackEntry.arguments?.getInt("identificationAttributeId")
+                                    ?: 0,
+                                identificationAttributeValueId = backStackEntry.arguments?.getInt("identificationAttributeValueId")
+                                    ?: 0,
+                                modelId = backStackEntry.arguments?.getInt("modelId") ?: 0,
+                                onBackClick = { navController.popBackStack() }
+                            )
                         }
                     }
                 }
