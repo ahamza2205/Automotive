@@ -94,7 +94,7 @@ fun ModelsScreen(
                         )
                 ) {
                     val iconRes =
-                        if (viewType == ViewType.Grid) R.drawable.ic_list else R.drawable.ic_grid
+                        if (viewType == ViewType.Grid) R.drawable.ic_list else R.drawable.grid
                     Image(
                         painter = painterResource(id = iconRes),
                         contentDescription = "Toggle View",

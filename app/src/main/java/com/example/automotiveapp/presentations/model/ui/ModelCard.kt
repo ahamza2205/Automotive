@@ -67,7 +67,7 @@ fun CustomGridModelCard(model: Model, onClick: () -> Unit) {
             )
             Text(
                 text = "${formatPrice(model.least_deposit)} EGP",
-                color = Color(0xFFFF5722),
+                color = colorResource(R.color.orange),
                 style = MaterialTheme.typography.titleMedium
             )
         }
@@ -126,7 +126,7 @@ fun CustomListModelCard(model: Model , onClick: () -> Unit) {
                     )
                     Text(
                         text = "${formatPrice(model.least_deposit)} EGP",
-                        color = Color(0xFFFF5722),
+                        color = colorResource(R.color.orange),
                         style = MaterialTheme.typography.titleMedium
                     )
                 }
