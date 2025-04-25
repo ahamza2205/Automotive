@@ -75,7 +75,7 @@ fun GenerationScreen(
                             )
                         } else {
                             Image(
-                                painter = painterResource(id = R.drawable.compare_selected),
+                                painter = painterResource(id = R.drawable.placeholder),
                                 contentDescription = "Placeholder",
                                 modifier = Modifier.size(100.dp)
                             )
@@ -83,7 +83,7 @@ fun GenerationScreen(
                     }
                     else -> {
                         Image(
-                            painter = painterResource(id = R.drawable.compare_selected),
+                            painter = painterResource(id = R.drawable.placeholder),
                             contentDescription = "Placeholder",
                             modifier = Modifier.size(100.dp)
                         )
