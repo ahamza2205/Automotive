@@ -28,6 +28,8 @@ data class Model(
     val least_installment: Int,
     val attribute: String,
     val attribute_image: String,
+    val identification_attribute_id : Int,
+    val identification_attribute_value_id: Int,
     val attribute_value: String,
     val price: Int,
     val parent_brand: String,
