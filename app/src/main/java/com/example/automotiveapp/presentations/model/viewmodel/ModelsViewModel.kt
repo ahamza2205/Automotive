@@ -37,24 +37,19 @@ class ModelsViewModel @Inject constructor(
 
     fun fetchModels(brandId: Int) {
         if (isLoading.value || !hasMore.value) {
-            Log.d("ModelsViewModel", "Skipped fetchModels for brandId: $brandId, isLoading: ${isLoading.value}, hasMore: ${hasMore.value}")
             return
         }
-        Log.d("ModelsViewModel", "Fetching models for brandId: $brandId, page: ${page.value}")
         viewModelScope.launch {
             isLoading.value = true
             getModelsUseCase(page.value, brandId, 3).collect { resource ->
                 when (resource) {
                     is Resource.Success -> {
                         val newModels = resource.data ?: emptyList()
-                        Log.d("ModelsViewModel", "Fetched models for brandId: $brandId, models: $newModels")
                         if (newModels.isEmpty()) {
                             hasMore.value = false
-                            Log.d("ModelsViewModel", "No more models for brandId: $brandId")
                         } else {
                             _models.value = _models.value + newModels
                             page.value++
-                            Log.d("ModelsViewModel", "Added models for brandId: $brandId, total: ${_models.value.size}")
                         }
                     }
                     is Resource.Error -> {

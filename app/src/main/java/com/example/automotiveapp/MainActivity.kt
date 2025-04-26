@@ -22,15 +22,36 @@ import com.example.automotiveapp.presentations.model.viewmodel.ModelsViewModel
 import com.example.automotiveapp.ui.theme.AutomotiveAppTheme
 import com.example.automotiveapp.utils.Routes
 import dagger.hilt.android.AndroidEntryPoint
+import android.widget.Toast
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.lifecycle.lifecycleScope
+import com.example.automotiveapp.utils.NetworkMonitor
+import kotlinx.coroutines.flow.collectLatest
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
+    @Inject
+    lateinit var networkMonitor: NetworkMonitor
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
+        lifecycleScope.launchWhenStarted {
+            networkMonitor.isConnected.collectLatest { connected ->
+                if (!connected) {
+                    Toast.makeText(this@MainActivity, "No Internet Connection", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+
         setContent {
             AutomotiveAppTheme {
                 val navController = rememberNavController()
+                val isConnected by networkMonitor.isConnected.collectAsState()
 
                 Scaffold { paddingValues ->
                     NavHost(
@@ -41,24 +62,28 @@ class MainActivity : ComponentActivity() {
                             .padding(paddingValues)
                     ) {
                         composable(Routes.BRAND) {
-                            BrandScreen(navController = navController)
+                            if (isConnected) {
+                                BrandScreen(navController = navController)
+                            }
                         }
                         composable(
                             route = Routes.MODELS + "/{brandId}",
                             arguments = listOf(navArgument("brandId") { type = NavType.IntType })
                         ) { backStackEntry ->
-                            val brandId = backStackEntry.arguments?.getInt("brandId") ?: 0
-                            val viewModel: ModelsViewModel = hiltViewModel()
-                            val brand = navController.previousBackStackEntry
-                                ?.savedStateHandle?.get<Brand>("brand")
-                            brand?.let {
-                                ModelsScreen(
-                                    navController = navController,
-                                    viewModel = viewModel,
-                                    brand = it,
-                                    brandId = brandId,
-                                    onBackClick = { navController.popBackStack() }
-                                )
+                            if (isConnected) {
+                                val brandId = backStackEntry.arguments?.getInt("brandId") ?: 0
+                                val viewModel: ModelsViewModel = hiltViewModel()
+                                val brand = navController.previousBackStackEntry
+                                    ?.savedStateHandle?.get<Brand>("brand")
+                                brand?.let {
+                                    ModelsScreen(
+                                        navController = navController,
+                                        viewModel = viewModel,
+                                        brand = it,
+                                        brandId = brandId,
+                                        onBackClick = { navController.popBackStack() }
+                                    )
+                                }
                             }
                         }
                         composable(
@@ -71,14 +96,14 @@ class MainActivity : ComponentActivity() {
                                 navArgument("modelId") { type = NavType.IntType }
                             )
                         ) { backStackEntry ->
-                            GenerationScreen(
-                                identificationAttributeId = backStackEntry.arguments?.getInt("identificationAttributeId")
-                                    ?: 0,
-                                identificationAttributeValueId = backStackEntry.arguments?.getInt("identificationAttributeValueId")
-                                    ?: 0,
-                                modelId = backStackEntry.arguments?.getInt("modelId") ?: 0,
-                                onBackClick = { navController.popBackStack() }
-                            )
+                            if (isConnected) {
+                                GenerationScreen(
+                                    identificationAttributeId = backStackEntry.arguments?.getInt("identificationAttributeId") ?: 0,
+                                    identificationAttributeValueId = backStackEntry.arguments?.getInt("identificationAttributeValueId") ?: 0,
+                                    modelId = backStackEntry.arguments?.getInt("modelId") ?: 0,
+                                    onBackClick = { navController.popBackStack() }
+                                )
+                            }
                         }
                     }
                 }
@@ -86,3 +111,4 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
+

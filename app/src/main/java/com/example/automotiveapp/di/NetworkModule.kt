@@ -1,9 +1,12 @@
-package com.example.automotiveapp.data.di
+package com.example.automotiveapp.di
 
+import android.content.Context
 import com.example.automotiveapp.data.remote.ApiService
+import com.example.automotiveapp.utils.NetworkMonitor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -27,4 +30,10 @@ object NetworkModule {
     fun provideBrandApiService(retrofit: Retrofit): ApiService {
         return retrofit.create(ApiService::class.java)
     }
+
+        @Provides
+        @Singleton
+        fun provideNetworkMonitor(@ApplicationContext context: Context): NetworkMonitor {
+            return NetworkMonitor(context)
+        }
 }

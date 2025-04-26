@@ -1,4 +1,4 @@
-package com.example.automotiveapp.data.di
+package com.example.automotiveapp.di
 
 import com.example.automotiveapp.data.remote.ApiService
 import com.example.automotiveapp.data.repository.RepositoryImpl
